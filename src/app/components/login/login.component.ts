@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from './../../servises/auth.service';
 
 
 @Component({
@@ -14,13 +15,17 @@ export class LoginComponent implements OnInit {
       password:new FormControl(null,[Validators.required, Validators.minLength(6)]),
     })
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
+
   }
 
   login(){
-    console.log(this.formLogin.value)
+    this.authService.login(this.formLogin.value).subscribe(res=> {
+      console.log("data login");
+      console.log(res)
+    })
   }
 
    get email(){

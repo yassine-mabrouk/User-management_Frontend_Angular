@@ -12,6 +12,8 @@ import { NotFoundComponent } from './components/partials/not-found/not-found.com
 
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './servises/auth.service';
 
 const routes:Routes = [
   {path : '' ,redirectTo:'/address',pathMatch:'full'},
@@ -35,17 +37,21 @@ const routes:Routes = [
     LoginComponent,
     NavbarComponent,
     NotFoundComponent,
+
  
   ],
   imports: [
-  BrowserModule,
+ 
+BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+    
    
 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
