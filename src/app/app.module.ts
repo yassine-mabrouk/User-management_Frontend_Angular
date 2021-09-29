@@ -16,16 +16,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './servises/auth.service';
 import { TokenService } from './servises/token.service';
 import { AccountService } from './servises/account.service';
-
+import { AuthGuard } from './guards/auth.guard';
+import { AfterAuthGuard } from './guards/after-auth.guard';
 const routes:Routes = [
-  {path : '' ,redirectTo:'/address',pathMatch:'full'},
+  //canActivate:[AuthGuard] pour securiser les routes 
+  {path : '' ,redirectTo:'/address',pathMatch:'full',canActivate:[AuthGuard]},
   {path:"address", children :[
     {path : 'add' ,component:AddAddressComponent},
     {path : 'edit/:id' ,component:EditAddressComponent},
     {path : '' ,component:ListAddressComponent},
-  ]},
+  ],canActivate:[AuthGuard]},
 
-  {path : 'login' ,component:LoginComponent},
+  {path : 'login' ,component:LoginComponent,canActivate:[AfterAuthGuard]},
   {path : '**' ,component:NotFoundComponent},
  
 ]
@@ -46,6 +48,7 @@ const routes:Routes = [
 
 
 
+
 BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
@@ -55,7 +58,7 @@ BrowserModule,
    
 
   ],
-  providers: [AuthService,TokenService,AccountService],
+  providers: [AuthService,TokenService,AccountService,AuthGuard,AfterAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
