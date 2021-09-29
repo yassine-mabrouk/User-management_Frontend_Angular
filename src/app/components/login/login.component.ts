@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../servises/auth.service';
 import { TokenService } from './../../servises/token.service';
+import { AccountService } from './../../servises/account.service';
 
 
 @Component({
@@ -17,7 +18,11 @@ export class LoginComponent implements OnInit {
       password:new FormControl(null,[Validators.required, Validators.minLength(6)]),
     })
 
-  constructor(private authService:AuthService, private tokenService:TokenService ,private router :Router) { }
+  constructor(private authService:AuthService,
+     private tokenService:TokenService ,
+     private accountService : AccountService,
+     private router :Router
+     ) { }
 
   ngOnInit(): void {
 
@@ -28,13 +33,17 @@ export class LoginComponent implements OnInit {
       console.log("data login");
       console.log(res);
       this.hundleResponse(res);
-
+     
     })
   }
   hundleResponse(res){
+   
      this.tokenService.handle(res);
      // pour la redirection vers la listes des adrees 
+     this.accountService.changeAuthStatus(true);
      this.router.navigateByUrl("/address");
+     console.log("data current user ");
+     console.log(this.tokenService.getInfo())
   }
 
    get email(){

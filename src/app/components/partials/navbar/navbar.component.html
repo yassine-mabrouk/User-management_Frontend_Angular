@@ -6,7 +6,7 @@
       </button>
 
         <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto" *ngIf="currentUser">
                 <li class="nav-item">
                     <a class="nav-link active" routerLink="/address">Home
                 </a>
@@ -21,7 +21,10 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav ml-auto ">
-                <li class="nav-item"><a routerLink="/login" class="nav-link"> Login</a></li>
+                <li *ngIf="!currentUser" class="nav-item"><a routerLink="/login" class="nav-link"> Login</a></li>
+                <li *ngIf="currentUser" class="nav-item">
+                    <button (click)="logOut()" class="nav-link btn-logout"> Lougout</button>
+                </li>
             </ul>
         </div>
     </div>

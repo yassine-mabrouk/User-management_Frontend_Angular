@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './servises/auth.service';
 import { TokenService } from './servises/token.service';
+import { AccountService } from './servises/account.service';
 
 const routes:Routes = [
   {path : '' ,redirectTo:'/address',pathMatch:'full'},
@@ -44,6 +45,7 @@ const routes:Routes = [
   imports: [
 
 
+
 BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
@@ -53,7 +55,7 @@ BrowserModule,
    
 
   ],
-  providers: [AuthService,TokenService],
+  providers: [AuthService,TokenService,AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
