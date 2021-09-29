@@ -16,6 +16,8 @@ export class ListAddressComponent implements OnInit {
 
   getAddresses(){
     this.addressService.getAll().subscribe(res => {
+      console.log("Adresses:")
+      console.log(res)
   this.addresses=res;
 
     }, err=> console.log("Cannot get Adress "))
