@@ -12,12 +12,16 @@ import { NotFoundComponent } from './components/partials/not-found/not-found.com
 
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './servises/auth.service';
 import { TokenService } from './servises/token.service';
 import { AccountService } from './servises/account.service';
+
+import { AddressService } from './servises/address.service';
+
 import { AuthGuard } from './guards/auth.guard';
 import { AfterAuthGuard } from './guards/after-auth.guard';
+import { JwtInterceptor } from './servises/jwt.interceptor';
 const routes:Routes = [
   //canActivate:[AuthGuard] pour securiser les routes 
   {path : '' ,redirectTo:'/address',pathMatch:'full',canActivate:[AuthGuard]},
@@ -49,16 +53,23 @@ const routes:Routes = [
 
 
 
+
 BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     HttpClientModule
-    
-   
+ 
 
   ],
-  providers: [AuthService,TokenService,AccountService,AuthGuard,AfterAuthGuard],
+  providers: [AuthService,TokenService,AccountService,AuthGuard,AfterAuthGuard,AddressService,
+    // pour jwt 
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:JwtInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

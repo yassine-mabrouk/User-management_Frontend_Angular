@@ -1,1 +1,9 @@
-<p>list-address works!</p>
+<div class="row">
+    <div class="col-md-6" *ngIf="addresses">
+        <div *ngFor="let a of addresses" class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">{{a.city}}</div>
+            <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+            </div>
+        </div>
+    </div>
